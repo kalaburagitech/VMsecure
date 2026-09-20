@@ -1,7 +1,19 @@
+import { FormEvent } from 'react';
 import { Mail, Phone, MapPin, Briefcase, Building2, Send } from 'lucide-react';
 import { GlassPanel } from './GlassPanel';
 
 export function ContactPage() {
+  const handleConsultation = (e: FormEvent) => {
+    e.preventDefault();
+    const text = "Hello VM Square, I would like to request a security consultation for my assets.";
+    window.open(`https://wa.me/916362050656?text=${encodeURIComponent(text)}`, '_blank');
+  };
+
+  const handleJobApplication = () => {
+    const text = "Hi, I would like to apply for an open position at VM Square.";
+    window.open(`https://wa.me/916362050656?text=${encodeURIComponent(text)}`, '_blank');
+  };
+
   return (
     <div className="min-h-[100dvh] bg-security-navy pt-12 pb-32 px-6 overflow-y-auto">
       <div className="max-w-5xl mx-auto mt-8">
@@ -26,14 +38,14 @@ export function ContactPage() {
               </div>
             </div>
             
-            <form className="flex-1 flex flex-col gap-4">
-              <div className="grid grid-cols-2 gap-4">
-                <input type="text" placeholder="First Name" className="bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-blue-500/50" />
-                <input type="text" placeholder="Last Name" className="bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-blue-500/50" />
+            <form onSubmit={handleConsultation} className="flex-1 flex flex-col gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <input type="text" required placeholder="First Name" className="bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-blue-500/50" />
+                <input type="text" required placeholder="Last Name" className="bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-blue-500/50" />
               </div>
-              <input type="email" placeholder="Corporate Email" className="bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-blue-500/50" />
+              <input type="email" required placeholder="Corporate Email" className="bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-blue-500/50" />
               <textarea placeholder="Tell us about your security needs..." rows={4} className="bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-blue-500/50 resize-none"></textarea>
-              <button type="button" className="mt-auto bg-blue-500/20 hover:bg-blue-500/40 text-blue-400 border border-blue-500/30 rounded-lg px-4 py-3 font-semibold transition-colors flex items-center justify-center gap-2">
+              <button type="submit" className="mt-auto bg-blue-500/20 hover:bg-blue-500/40 text-blue-400 border border-blue-500/30 rounded-lg px-4 py-3 font-semibold transition-colors flex items-center justify-center gap-2">
                 <Send className="w-4 h-4" /> Request Consultation
               </button>
             </form>
@@ -67,8 +79,8 @@ export function ContactPage() {
                 </div>
               </div>
 
-              <button type="button" className="mt-auto bg-emerald-500/20 hover:bg-emerald-500/40 text-emerald-400 border border-emerald-500/30 rounded-lg px-4 py-3 font-semibold transition-colors w-full">
-                View Open Positions
+              <button type="button" onClick={handleJobApplication} className="mt-auto bg-emerald-500/20 hover:bg-emerald-500/40 text-emerald-400 border border-emerald-500/30 rounded-lg px-4 py-3 font-semibold transition-colors w-full">
+                View Open Positions & Apply
               </button>
             </div>
           </GlassPanel>
