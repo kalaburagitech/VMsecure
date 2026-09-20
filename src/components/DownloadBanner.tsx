@@ -3,16 +3,33 @@ import { X, Shield } from 'lucide-react';
 
 export function DownloadBanner() {
   const [isVisible, setIsVisible] = useState(false);
+  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
 
   useEffect(() => {
-    // Delay showing the banner slightly for better UX
+    const handleBeforeInstallPrompt = (e: any) => {
+      e.preventDefault(); // Prevent the mini-infobar from appearing on mobile
+      setDeferredPrompt(e);
+      
+      const hasDismissed = sessionStorage.getItem('vmsquare_app_banner_dismissed');
+      if (!hasDismissed) {
+        setIsVisible(true);
+      }
+    };
+
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+
+    // Fallback: Show banner anyway if not installable (e.g. iOS safari doesn't support beforeinstallprompt)
     const timer = setTimeout(() => {
       const hasDismissed = sessionStorage.getItem('vmsquare_app_banner_dismissed');
       if (!hasDismissed) {
         setIsVisible(true);
       }
     }, 1500);
-    return () => clearTimeout(timer);
+
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+      clearTimeout(timer);
+    };
   }, []);
 
   const handleDismiss = () => {
@@ -20,11 +37,19 @@ export function DownloadBanner() {
     sessionStorage.setItem('vmsquare_app_banner_dismissed', 'true');
   };
 
-  const handleInstall = () => {
-    // In a real PWA, this would trigger the beforeinstallprompt event.
-    // For now, we'll just dismiss it to simulate the behavior.
-    alert("Downloading VM Square App...");
-    handleDismiss();
+  const handleInstall = async () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      if (outcome === 'accepted') {
+        setIsVisible(false);
+      }
+      setDeferredPrompt(null);
+    } else {
+      // Fallback for browsers that don't support the prompt API (like iOS)
+      alert("To install the VM Square app on iOS: tap the Share button and select 'Add to Home Screen'.");
+      handleDismiss();
+    }
   };
 
   if (!isVisible) return null;
