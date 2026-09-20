@@ -4,7 +4,7 @@ import { GlassPanel } from './GlassPanel';
 
 export function AboutPage() {
   return (
-    <div className="min-h-screen bg-security-navy pt-12 pb-32 px-6 overflow-y-auto">
+    <div className="min-h-[100dvh] bg-security-navy pt-12 pb-32 px-6 overflow-y-auto">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12 mt-8">
           <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-security-accent/20 border border-security-accent/30 mb-6 shadow-[0_0_30px_rgba(59,130,246,0.3)]">

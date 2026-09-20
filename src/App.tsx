@@ -9,7 +9,7 @@ function App() {
   const [activeTab, setActiveTab] = useState('home');
 
   return (
-    <div className="bg-security-black min-h-screen text-security-white selection:bg-security-accent selection:text-white overflow-x-hidden">
+    <div className="bg-security-black min-h-[100dvh] text-security-white selection:bg-security-accent selection:text-white overflow-x-hidden">
       {activeTab === 'home' && <HeroScene />}
       {activeTab === 'about' && <AboutPage />}
       {activeTab === 'gallery' && <GalleryPage />}

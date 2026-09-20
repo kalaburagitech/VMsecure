@@ -10,7 +10,7 @@ export function GalleryPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-security-navy pt-12 pb-32 px-6 overflow-y-auto">
+    <div className="min-h-[100dvh] bg-security-navy pt-12 pb-32 px-6 overflow-y-auto">
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col items-center text-center mb-10 mt-8">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-500/10 border border-blue-500/20 mb-4">

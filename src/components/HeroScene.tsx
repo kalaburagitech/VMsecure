@@ -57,7 +57,7 @@ function Scene() {
 
 export function HeroScene() {
   return (
-    <div className="w-full h-screen bg-security-black relative">
+    <div className="w-full h-[100dvh] bg-security-black relative">
       <Canvas camera={{ position: [0, 0, 5], fov: 50 }}>
         <ScrollControls pages={4} damping={0.2}>
           <Scene />
@@ -69,7 +69,7 @@ export function HeroScene() {
 
           <Scroll html style={{ width: '100%', height: '100%' }}>
             {/* Stage 1: Initial Hero */}
-            <div className="absolute top-0 left-0 w-full h-screen flex flex-col justify-start pt-[12vh] md:pt-[20vh] px-6 md:px-12 pointer-events-none">
+            <div className="absolute top-0 left-0 w-full h-[100dvh] flex flex-col justify-start pt-[12vh] md:pt-[20vh] px-6 md:px-12 pointer-events-none">
               <div className="flex items-center gap-2 mb-4">
                 <ShieldCheck className="w-5 h-5 text-security-accent" />
                 <span className="uppercase tracking-widest text-xs font-semibold text-security-accent">Active Site</span>
@@ -93,7 +93,7 @@ export function HeroScene() {
             </div>
 
             {/* Stage 5: Command Center Overlay */}
-            <div className="absolute top-[280vh] left-0 w-full h-screen flex flex-col justify-center items-center px-6 pointer-events-none text-center">
+            <div className="absolute top-[280vh] left-0 w-full h-[100dvh] flex flex-col justify-center items-center px-6 pointer-events-none text-center">
               <h2 className="text-4xl font-bold text-white drop-shadow-lg mb-4">Operations Center</h2>
               <p className="text-white/80 max-w-sm mb-8">Full command view activated. All systems nominal.</p>
             </div>

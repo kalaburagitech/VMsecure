@@ -4,7 +4,7 @@ import { GlassPanel } from './GlassPanel';
 
 export function ContactPage() {
   return (
-    <div className="min-h-screen bg-security-navy pt-12 pb-32 px-6 overflow-y-auto">
+    <div className="min-h-[100dvh] bg-security-navy pt-12 pb-32 px-6 overflow-y-auto">
       <div className="max-w-5xl mx-auto mt-8">
         <div className="text-center mb-10">
           <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">Connect With Us</h1>
