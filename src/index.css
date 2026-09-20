@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+@theme {
+  --color-security-navy: #0A1128;
+  --color-security-black: #121212;
+  --color-security-blue: #1A365D;
+  --color-security-white: #F8FAFC;
+  --color-security-accent: #3B82F6;
+  --color-security-glass: rgba(255, 255, 255, 0.05);
+  --color-security-glassBorder: rgba(255, 255, 255, 0.1);
+}
+
+@layer base {
+  body {
+    background-color: var(--color-security-black);
+    color: var(--color-security-white);
+    overflow-x: hidden;
+    overscroll-behavior-y: none;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
