@@ -5,6 +5,7 @@ export function GalleryPage() {
   const images = [
     { src: "/gate.jpg", title: "Main Access Gate", desc: "Perimeter security and access control." },
     { src: "/compound.jpg", title: "Internal Compound", desc: "Nighttime patrol routes." },
+    { src: "/patrol.jpg", title: "Mobile Patrol", desc: "Rapid response tactical vehicles." },
     { src: "/command.jpg", title: "Operations Center", desc: "24/7 Centralized monitoring." }
   ];
 
@@ -21,7 +22,7 @@ export function GalleryPage() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {images.map((img, i) => (
             <GlassPanel key={i} delay={0.1 * i} className="overflow-hidden group cursor-pointer border border-white/5">
               <div className="relative aspect-[4/3] overflow-hidden">

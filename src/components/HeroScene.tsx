@@ -10,47 +10,46 @@ function Scene() {
   const group = useRef<THREE.Group>(null);
   const gateRef = useRef<THREE.Mesh>(null);
   const compoundRef = useRef<THREE.Mesh>(null);
+  const patrolRef = useRef<THREE.Mesh>(null);
   const commandRef = useRef<THREE.Mesh>(null);
 
   useFrame(() => {
     if (!group.current) return;
     
-    // Total scroll depth - cap it so we don't fly past the final image
-    const maxZ = 20; 
+    // Total scroll depth - increased for 4 images
+    const maxZ = 30; 
     const currentZ = scroll.offset * maxZ;
     
-    // Smooth camera dolly effect (moving the world towards the camera)
+    // Smooth camera dolly effect
     group.current.position.z = THREE.MathUtils.lerp(group.current.position.z, currentZ, 0.1);
 
-    // Fade out images as they pass the camera (z > position.z)
-    // Camera is at z=5 by default. 
-    // Image world Z = currentZ + image.position.z
-    
     const fadeDistance = 3;
 
     if (gateRef.current && gateRef.current.material) {
       const worldZ = currentZ + 0;
-      const opacity = THREE.MathUtils.clamp(1 - (worldZ - 2) / fadeDistance, 0, 1);
-      (gateRef.current.material as THREE.Material).opacity = opacity;
+      (gateRef.current.material as THREE.Material).opacity = THREE.MathUtils.clamp(1 - (worldZ - 2) / fadeDistance, 0, 1);
     }
     
     if (compoundRef.current && compoundRef.current.material) {
       const worldZ = currentZ - 10;
-      const opacity = THREE.MathUtils.clamp(1 - (worldZ - 2) / fadeDistance, 0, 1);
-      (compoundRef.current.material as THREE.Material).opacity = opacity;
+      (compoundRef.current.material as THREE.Material).opacity = THREE.MathUtils.clamp(1 - (worldZ - 2) / fadeDistance, 0, 1);
+    }
+
+    if (patrolRef.current && patrolRef.current.material) {
+      const worldZ = currentZ - 20;
+      (patrolRef.current.material as THREE.Material).opacity = THREE.MathUtils.clamp(1 - (worldZ - 2) / fadeDistance, 0, 1);
     }
   });
 
   const { viewport } = useThree();
-  // The AI generated images are 1:1 aspect ratio.
-  // To simulate object-fit: cover, we make the plane a square sized to the largest viewport dimension.
   const size = Math.max(viewport.width, viewport.height);
 
   return (
     <group ref={group}>
       <ImageImpl ref={gateRef} position={[0, 0, 0]} scale={[size, size]} url="/gate.jpg" transparent />
       <ImageImpl ref={compoundRef} position={[0, 0, -10]} scale={[size, size]} url="/compound.jpg" transparent />
-      <ImageImpl ref={commandRef} position={[0, 0, -20]} scale={[size, size]} url="/command.jpg" transparent />
+      <ImageImpl ref={patrolRef} position={[0, 0, -20]} scale={[size, size]} url="/patrol.jpg" transparent />
+      <ImageImpl ref={commandRef} position={[0, 0, -30]} scale={[size, size]} url="/command.jpg" transparent />
     </group>
   );
 }
@@ -58,15 +57,12 @@ function Scene() {
 export function HeroScene() {
   return (
     <div className="w-full h-[100dvh] bg-security-black relative">
+      {/* Global Vignette for legibility */}
+      <div className="absolute inset-0 bg-gradient-to-t from-security-black via-security-black/40 to-transparent pointer-events-none z-10" />
       <Canvas camera={{ position: [0, 0, 5], fov: 50 }}>
-        <ScrollControls pages={4} damping={0.2}>
+        <ScrollControls pages={5} damping={0.2}>
           <Scene />
           
-          <Scroll html style={{ width: '100%', height: '100%', zIndex: -1 }}>
-            <div className="absolute inset-0 bg-gradient-to-t from-security-black via-security-black/40 to-transparent pointer-events-none" style={{ width: '100vw', height: '100vh', position: 'fixed' }} />
-            <div className="absolute inset-0 bg-black/20 pointer-events-none" style={{ width: '100vw', height: '100vh', position: 'fixed' }} />
-          </Scroll>
-
           <Scroll html style={{ width: '100%', height: '100%' }}>
             {/* Stage 1: Initial Hero */}
             <div className="absolute top-0 left-0 w-full h-[100dvh] flex flex-col justify-start pt-[12vh] md:pt-[20vh] px-6 md:px-12 pointer-events-none">
@@ -84,20 +80,22 @@ export function HeroScene() {
               </p>
             </div>
 
-            {/* Stage 3/4: Compound Data Panels */}
-            <div className="absolute top-[120vh] left-0 w-full px-4 pointer-events-none">
-               <h2 className="text-2xl font-bold text-white mb-8 drop-shadow-md text-center">Compound Active</h2>
-               <div className="pointer-events-auto">
-                 <LiveOperations />
-               </div>
+            {/* Stage 2 & 3: Live Operations UI overlay */}
+            <div className="absolute top-[120vh] left-0 w-full flex items-center justify-center px-6 pointer-events-auto">
+              <LiveOperations />
+            </div>
+
+            {/* Stage 4: Patrol Overlay */}
+            <div className="absolute top-[280vh] left-0 w-full h-[100dvh] flex flex-col justify-center items-center px-6 pointer-events-none text-center">
+              <h2 className="text-4xl font-bold text-white drop-shadow-lg mb-4">Mobile Patrol Units</h2>
+              <p className="text-white/80 max-w-sm mb-8">Rapid response vehicles securing the perimeter, ensuring 24/7 localized safety.</p>
             </div>
 
             {/* Stage 5: Command Center Overlay */}
-            <div className="absolute top-[280vh] left-0 w-full h-[100dvh] flex flex-col justify-center items-center px-6 pointer-events-none text-center">
+            <div className="absolute top-[380vh] left-0 w-full h-[100dvh] flex flex-col justify-center items-center px-6 pointer-events-none text-center">
               <h2 className="text-4xl font-bold text-white drop-shadow-lg mb-4">Operations Center</h2>
               <p className="text-white/80 max-w-sm mb-8">Full command view activated. All systems nominal.</p>
             </div>
-            
           </Scroll>
         </ScrollControls>
       </Canvas>
