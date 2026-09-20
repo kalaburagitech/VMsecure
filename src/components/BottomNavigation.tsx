@@ -1,4 +1,3 @@
-import React from 'react';
 import { Home, Info, Image as ImageIcon, Phone } from 'lucide-react';
 import { twMerge } from 'tailwind-merge';
 

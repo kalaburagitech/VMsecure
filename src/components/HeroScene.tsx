@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { ScrollControls, Scroll, useScroll, Image as ImageImpl } from '@react-three/drei';
 import * as THREE from 'three';
@@ -48,9 +48,9 @@ function Scene() {
 
   return (
     <group ref={group}>
-      <ImageImpl ref={gateRef} position={[0, 0, 0]} scale={[size, size, 1]} url="/gate.jpg" transparent />
-      <ImageImpl ref={compoundRef} position={[0, 0, -10]} scale={[size, size, 1]} url="/compound.jpg" transparent />
-      <ImageImpl ref={commandRef} position={[0, 0, -20]} scale={[size, size, 1]} url="/command.jpg" transparent />
+      <ImageImpl ref={gateRef} position={[0, 0, 0]} scale={[size, size]} url="/gate.jpg" transparent />
+      <ImageImpl ref={compoundRef} position={[0, 0, -10]} scale={[size, size]} url="/compound.jpg" transparent />
+      <ImageImpl ref={commandRef} position={[0, 0, -20]} scale={[size, size]} url="/command.jpg" transparent />
     </group>
   );
 }

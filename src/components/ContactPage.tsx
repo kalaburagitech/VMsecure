@@ -1,4 +1,3 @@
-import React from 'react';
 import { Mail, Phone, MapPin, Briefcase, Building2, Send } from 'lucide-react';
 import { GlassPanel } from './GlassPanel';
 

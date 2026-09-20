@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { HeroScene } from './components/HeroScene';
 import { BottomNavigation } from './components/BottomNavigation';
 import { AboutPage } from './components/AboutPage';

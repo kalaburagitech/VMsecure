@@ -1,5 +1,4 @@
-import React from 'react';
-import { Shield, Target, Users, Award } from 'lucide-react';
+import { Shield, Target, Award } from 'lucide-react';
 import { GlassPanel } from './GlassPanel';
 
 export function AboutPage() {
